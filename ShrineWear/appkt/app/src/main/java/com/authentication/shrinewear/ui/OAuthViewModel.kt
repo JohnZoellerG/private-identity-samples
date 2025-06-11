@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine.ui
+package com.authentication.shrinewear.ui
 
 import android.app.Application
 import android.content.Intent
@@ -22,8 +22,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.wear.remote.interactions.RemoteActivityHelper
-import com.authentication.shrine.BuildConfig
-import com.authentication.shrine.R
+import com.authentication.shrinewear.BuildConfig
+import com.authentication.shrinewear.R
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

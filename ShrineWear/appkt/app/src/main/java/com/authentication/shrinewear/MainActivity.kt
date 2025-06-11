@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine
+package com.authentication.shrinewear
 
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +21,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.wear.compose.material3.MaterialTheme
-import com.authentication.shrine.ui.ShrineApp
+import com.authentication.shrinewear.ui.ShrineApp
 
 private const val TAG = "MainActivity"
 /**

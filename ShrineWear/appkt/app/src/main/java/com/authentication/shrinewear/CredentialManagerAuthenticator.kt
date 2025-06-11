@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine
+package com.authentication.shrinewear
 
 import android.content.Context
 import android.util.Log
@@ -27,7 +27,7 @@ import androidx.credentials.GetPublicKeyCredentialOption
 import androidx.credentials.PasswordCredential
 import androidx.credentials.PublicKeyCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.authentication.shrine.api.*
+import com.authentication.shrinewear.api.*
 import kotlinx.coroutines.delay
 
 
@@ -75,19 +75,15 @@ class CredentialManagerAuthenticator(context: Context) {
         types: List<CredentialType> = CredentialType.entries,
     ): Boolean {
         val getCredentialRequest = createGetCredentialRequest(types)
-        Log.e("john", getCredentialRequest.credentialOptions.toString())
-        // confirmed here
+        getCredentialRequest.credentialOptions.forEachIndexed { index, option ->
+            Log.e("john", "Option $index: Type=${option.type}, Class=${option.javaClass.simpleName}")
+            if (option is GetPasswordOption) {
+                Log.e("john", "  PasswordOption: (No specific details to log for this one)")
+            }
+        }
         val getCredentialResponse = credentialManager.getCredential(activity, getCredentialRequest)
-        // never gets to here.
-
-        Log.e("john", "here4")
         delay(1000L * 3)
-
-
-        val result = authenticate(getCredentialResponse)
-        Log.e("john", "here5")
-
-        return result
+        return authenticate(getCredentialResponse)
     }
 
     /**signInWithPasskeysRequest
@@ -109,7 +105,6 @@ class CredentialManagerAuthenticator(context: Context) {
                 CredentialType.SIWG -> authenticationServer.createGetGoogleIdOption()
             }
         }
-        // confirmed here
         return GetCredentialRequest(userCredentialOptions)
     }
 
@@ -127,7 +122,6 @@ class CredentialManagerAuthenticator(context: Context) {
     private suspend fun authenticate(
         getCredentialResponse: GetCredentialResponse,
     ): Boolean {
-        Log.e("john", "here6=")
         when (val credential = getCredentialResponse.credential) {
             is PublicKeyCredential -> {
                 return authenticationServer.loginWithPasskey(credential)
@@ -138,8 +132,6 @@ class CredentialManagerAuthenticator(context: Context) {
             }
 
             is CustomCredential -> {
-                // This section is only shown for educational purposes, as google sign in is
-                // built-in to credential manager with no action needed from the developer.
                 if (credential.type != GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
                     Log.e(TAG, ERROR_UNRECOGNIZED_CUSTOM.format(credential.type))
                     return false

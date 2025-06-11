@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine
+package com.authentication.shrinewear
 
-import com.authentication.shrine.api.*
+import com.authentication.shrinewear.api.*
 import android.util.Base64
 import android.util.Log
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -76,7 +76,7 @@ class AuthenticationServer {
         /**
          * The key used for the session ID cookie.
          */
-        private const val SESSION_ID_KEY = "connect.sid="
+        private const val SESSION_ID_KEY = "SESAME_SESSION_COOKIE="
 
         /**
          * The tag for logging.
@@ -137,8 +137,6 @@ class AuthenticationServer {
             ).method("POST", createJSONRequestBody {}).build(),
         ).await()
 
-        Log.e("john", "here")
-
         return httpResponse.result(errorMessage = "Error in SignIn with Passkeys Request") {
             parsePublicKeyCredentialRequestOptions(
                 body ?:
@@ -148,7 +146,6 @@ class AuthenticationServer {
     }
 
     suspend fun loginWithPasskey(publicKeyCredential: PublicKeyCredential): Boolean {
-        Log.e("john", "here3")
         val signInResponseJSON = JSONObject(publicKeyCredential.authenticationResponseJson)
         val signInResult = signInWithPasskeysResponse(
             credentialData.sessionId!!,
@@ -205,10 +202,12 @@ class AuthenticationServer {
     suspend fun loginWithPassword(passwordCredential: PasswordCredential): Boolean {
         return when (val result = setUsername(passwordCredential.id)) {
             ApiResult.SignedOutFromServer -> {
+                Log.e(TAG, "failed password")
                 signOut()
                 false
             }
             is ApiResult.Success -> {
+                Log.e(TAG, "good password")
                 credentialData.username = passwordCredential.id
                 credentialData.sessionId = result.sessionId!!
                 setSessionWithPassword(passwordCredential.password)
@@ -527,7 +526,7 @@ class AuthenticationServer {
                     cancel()
                 } catch (ex: Throwable) {
                     // Ignore cancel exception
-                    // Maybe I should throw an exception here...
+                    // Maybe I should throw an exception ...
                 }
             }
         }

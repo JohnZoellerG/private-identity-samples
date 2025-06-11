@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package  com.authentication.shrine.api
+package  com.authentication.shrinewear.api
 
 /**
  * An exception class for API errors.

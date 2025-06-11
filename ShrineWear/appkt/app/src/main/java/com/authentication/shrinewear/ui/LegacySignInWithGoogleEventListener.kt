@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine.ui
+package com.authentication.shrinewear.ui
 
 import android.util.Log
-import com.authentication.shrine.Graph
+import com.authentication.shrinewear.Graph
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 

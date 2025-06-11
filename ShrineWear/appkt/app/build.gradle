@@ -20,7 +20,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.authentication.shrine"
+        applicationId "com.authentication.shrinewear"
         minSdk 30
         targetSdk 35
         versionCode 1
@@ -61,10 +61,11 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.authentication.shrine'
+    namespace 'com.authentication.shrinewear'
 }
 
 dependencies {
+    // here
     // Androidx
     implementation(platform(libs.androidx.compose.bom))
     implementation libs.androidx.core.ktx

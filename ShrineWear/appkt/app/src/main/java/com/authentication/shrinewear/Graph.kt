@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.authentication.shrine
+package com.authentication.shrinewear
 
 import android.content.Context
 
